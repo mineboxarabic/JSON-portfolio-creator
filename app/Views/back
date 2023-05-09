@@ -1,0 +1,63 @@
+<!-- Bootstrap -->
+<link href="Assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="Assets/css/style.css" rel="stylesheet">
+<link href="Assets/css/themify-icons.css" rel="stylesheet">
+<link href='Assets/css/dosis-font.css' rel='stylesheet' type='text/css'>
+<link href='Assets/css/Cards.css' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<button
+        type="button"
+        class="btn btn-danger"
+        id="btn-add-image"
+        >
+        <i class="fa-solid fa-plus"></i>
+</button>
+
+
+<div class="row me-row content-ct speaker" id="speakers">
+
+    <?php foreach($images as $image){?>
+
+        <a  href='<?= base_url() . 'modifyImage/'. $image['id']?>'>    
+            <div  class="col-md-4 col-sm-6 feature Card">
+                <img src="<?= $image['url'] ?>" class="img-thumbnail">
+                <h3><?= $image['name'] ?></h3>
+                <p><?= $image['id'] ?></p>
+                <div class="ImageTools notActive" >
+                    <a href='<?= base_url() . 'deleteImage/'. $image['id']?>' class="btn btn-danger">Delete</a>
+                    <a href='<?= base_url() . 'modifyImage/'. $image['id']?>' class="btn btn-primary">Modify</a>
+                    <a href='<?= base_url() . 'renameImage/'. $image['id']?>' class="btn btn-primary">Rename</a>
+                </div>
+            </div>
+        </a>
+
+
+    <?php }?>
+
+
+
+</div> 
+
+
+
+<script type="module">
+    document.addEventListener("DOMContentLoaded", function() {
+    const getAllCards = document.querySelectorAll('.Card');
+    getAllCards.forEach(card => {
+      card.addEventListener('mouseover', () => {
+        const getTools = card.querySelector('.ImageTools');
+        getTools.classList.add('active');
+        getTools.classList.remove('notActive');
+      });
+
+
+      //on mouse leave
+        card.addEventListener('mouseleave', () => {
+            const getTools = card.querySelector('.ImageTools');
+            getTools.classList.remove('active');
+            getTools.classList.add('notActive');
+        });
+    });
+  });
+</script>

@@ -1,0 +1,52 @@
+/*on hover over parent div show .Tools*/
+
+
+
+@keyframes fadeIn {
+        0% {
+                opacity: 0;
+        }
+        100% {
+                opacity: 1;
+        }
+}
+
+@keyframes fadeUp {
+        0% {
+                opacity: 0;
+                transform: translateY(20px);
+        }
+        100% {
+                opacity: 1;
+                transform: translateY(0px);
+        }
+}
+
+
+.active {
+        opacity: 1;
+        animation: fadeUp 0.5s ease-in-out;
+}
+
+.notActive{
+        opacity: 0;
+        animation: fadeUp 0.5s ease-in-out;
+}
+.Card{
+        height: 500px;
+        transition: all 0.1s ease-out;
+}
+
+.Card:hover{
+        transform: translateY(-20px);
+        box-shadow: 0px 0px 10px 0px rgba(138, 138, 138, 0.414);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+}
+.Card img{
+        height: 70%;
+        width: 100%;
+        object-fit: cover;
+}
+
+
