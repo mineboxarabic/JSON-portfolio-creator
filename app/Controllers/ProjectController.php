@@ -86,6 +86,8 @@ class ProjectController extends BaseController{
 
     }
 
+
+
     function updateJSON(){
         $Projects_json_path = 'Projects.json';
         $Projects_json = file_get_contents($Projects_json_path);
@@ -115,7 +117,19 @@ class ProjectController extends BaseController{
         }
         return $maxId;
     }
+    public function deleteProject($id){
+        $newProjects = [];
+        foreach($this->Projects as $Project){
+            if($Project['id'] != $id){
+                array_push($newProjects, $Project);
+            }
+        }
+        $this->Projects = $newProjects;
+        $this->updateJSON();
+        return redirect()->to(base_url().'show_Projects');
+    }
 
+    
 
 
 }
