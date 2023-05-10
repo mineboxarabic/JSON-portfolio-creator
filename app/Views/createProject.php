@@ -27,13 +27,12 @@
     <form action="<?= base_url() . 'addProject'?>" method="POST" enctype="multipart/form-data" >
     <input type="file" name="file" id="imageFile" hidden requiredd>
         <img id="image-upload" class="rounded mx-auto d-block" src="project.png" alt="...">
-    <h1>Untitled</h1>
 <!-- End project image -->
 
 <!-- Project name -->
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-default">Image name</span>
+            <span class="input-group-text" id="inputGroup-sizing-default">Project name</span>
         </div>
         <input name="projectName" required placeholder="Type a name for you project" type="text" id="imagename" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" >
     </div>
@@ -92,9 +91,21 @@
 <script defer type="module">
 
 let imageUpload = document.querySelector("#image-upload");
- 
+let imageFile = document.querySelector("#imageFile"); 
 imageUpload.addEventListener("click", function(){
-    document.querySelector("#imageFile").click();
+	imageFile.click();
+
+})
+
+imageFile.addEventListener("change", function(){
+	let file = this.files[0];
+	if(file){
+		let reader = new FileReader();
+		reader.onload = function(){
+			imageUpload.setAttribute("src", this.result);
+		}
+		reader.readAsDataURL(file);
+	}
 })
 
 const saveButton = document.querySelector(".saveButton");

@@ -59,7 +59,6 @@ class ProjectController extends BaseController{
                 'fr' => $descriptionFR
             ],
             'mdFile' => 'undefined',
-            'image' => $file,
             'github' => $url,
             'keyWords' => $keywords
         ];
@@ -104,6 +103,15 @@ class ProjectController extends BaseController{
             return false;
         }
     }
+    function checkIfImageUrl($url){
+        $imageFileType = strtolower(pathinfo($url,PATHINFO_EXTENSION));
+        $check = getimagesize($url);
+        if($check !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function getMaxId(){
         $maxId = 0;
        
@@ -116,6 +124,92 @@ class ProjectController extends BaseController{
         return $maxId;
     }
 
+    function deleteProject($id){
+        $index = 0;
+        foreach($this->Projects as $Project){
+            if($Project['id'] == $id){
+                unset($this->Projects[$index]);
+                $this->updateJSON();
+                return redirect()->to(base_url().'show_Projects');
+            }
+            $index++;
+        }
+    }
+
+    function modifyProject(){
+ 
+        $name = $this->request->getPost('projectName');
+        $descriptionEN = $this->request->getPost('projectDiscEN');
+        $descriptionFR = $this->request->getPost('projectDiscFR');
+
+
+        if($_FILES['file']['name'] != "")
+            $file = $_FILES['file'];
+
+
+
+        $imageUrl = $this->request->getPost('url');
+        $url = $this->request->getPost('projectUrl');
+       $keyword = $_POST['projectKeywords'];
+        $keywords = explode(',', $keyword);
+        $id = $this->request->getPost('id');
+
+        $index = 0;
+
+        foreach($this->Projects as $Project){
+            if($Project['id'] == $id){
+
+                $this->Projects[$index]['Name'] = $name;
+                $this->Projects[$index]['description']['en'] = $descriptionEN;
+                $this->Projects[$index]['description']['fr'] = $descriptionFR;
+                $this->Projects[$index]['github'] = $url;
+                $this->Projects[$index]['keyWords'] = $keywords;
+
+                echo "test";
+                
+                if($_FILES['file']['name'] != "" && $this->checkIfImage($file)){
+                    
+                    $this->Projects[$index]['Image'] = base_url() .'images/'. $file['name'];
+                    //check if images exists
+                    if(!file_exists('images')){
+                        mkdir('images');
+                    }
+                    //move file to images
+                    move_uploaded_file($file['tmp_name'], 'images/'.$file['name']);
+
+                }
+                else{
+                  
+
+                    if(isset($imageUrl)){
+                    
+                        $this->Projects[$index]['Image'] = $imageUrl;
+                    }
+                    else{
+                        echo 'URL not an image';
+                        return;
+                    }
+                    
+                }
+                
+                $this->updateJSON();
+                return redirect()->to(base_url().'show_Projects');
+            }
+            $index++;
+        }
+
+
+    }
+
+    public function consultProject($id){
+        $index = 0;
+        foreach($this->Projects as $Project){
+            if($Project['id'] == $id){
+                return view('include/inc_header').view('consultProject', ['Project' => $Project]);
+            }
+            $index++;
+        }
+    }
 
 
 }

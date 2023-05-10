@@ -7,7 +7,7 @@ class Home extends BaseController
     public static $images ;
     public function index()
     {
-        return view('welcome_message');
+        return view('include/inc_header').view('MainView');
     }
 
 }
