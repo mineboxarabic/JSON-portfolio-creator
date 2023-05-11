@@ -1,0 +1,2 @@
+<a class="btn btn-success col-5" style="height:100vh; text-align:center;" href="<?= base_url(). 'show_Projects' ?>">Projects</a>
+<a class="btn btn-danger col-5" style="height:100vh; text-align:center;" href="<?= base_url(). 'show_images' ?>">Images</a>

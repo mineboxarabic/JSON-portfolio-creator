@@ -35,6 +35,7 @@
 .Card{
         height: 500px;
         transition: all 0.1s ease-out;
+        height: 100%;
 }
 
 .Card:hover{
