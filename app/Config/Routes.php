@@ -49,7 +49,7 @@ $routes->get('/consultImage/(:num)', 'ImageController::consultImage/$1');
     Routes for projects
 */
 $routes->get('/show_Projects', 'ProjectController::showProjects');
-$routes->get('/show_Projects/(:num)', 'ProjectController::showProject/$1');
+$routes->get('/show_Project/(:num)', 'ProjectController::show_Project/$1');
 
 $routes->get('/deleteProject/(:num)', 'ProjectController::deleteProject/$1');
 $routes->post('/modifyProject', 'ProjectController::modifyProject');

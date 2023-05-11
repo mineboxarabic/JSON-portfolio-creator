@@ -26,10 +26,11 @@
 <div class="container-fluid speaker">
 
 <a class="btn btn-success" href="<?= base_url() . 'Projects.json' ?>">Download JSON</a>
-<div class="grid gap-4 p-4">
+<div class="grid gap-4 p-4" >
   <?php $i=0;foreach ($Projects as $project) { ?>
 
       <div id="projectThumnail" class="col ps-3 pe-3 pt-2 feature Card">
+        <input type="hidden" value="<?= $project['github'] ?>">
         <img src="<?= $project['Image'] ?>" class="img-thumbnail">
         <h3>
           <?= $project['Name'] ?>
@@ -75,10 +76,10 @@
       });
 
       card.addEventListener('click', () => {
-        let id = card.querySelector('#idProject').innerHTML;
-        let idn = parseInt(id);
-        console.log(idn);
-        window.location.href = "<?= base_url() . 'show_projects/' ?>" + idn;
+        const projectUrl = card.querySelector('input').value;
+        //go the url 
+        window.location.replace(projectUrl);
+
       });
 
     });

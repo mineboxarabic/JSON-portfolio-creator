@@ -213,7 +213,21 @@ class ProjectController extends BaseController{
         }
     }
 
-
+    function getProject($id){
+        $index = 0;
+        foreach($this->Projects as $Project){
+            if($Project['id'] == $id){
+                return $Project;
+            }
+            $index++;
+        }
+    }
+    public function show_Project($id){
+        $project= $this->getProject($id);
+        header('Location: test.php');
+        echo 'location: '.'http://'.$project['github'];
+       
+    }
 }
 
 
